@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: 'audax_datasheets'
+      POSTGRES_PASSWORD: 'strapi'
+    ports:
+      - '15432:5432'
+    volumes:
+      - /home/marcos/projetos/ecosystem/postgres/data:/var/lib/postgresql/data
+    networks:
+      - ecosystem-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'marcospcmartins@hotmail.com'
+      PGADMIN_DEFAULT_PASSWORD: '1988'
+    ports:
+      - '16543:80'
+    depends_on:
+      - postgres
+    networks:
+      - ecosystem-network
+
+networks:
+  ecosystem-network:
+    driver: bridge
